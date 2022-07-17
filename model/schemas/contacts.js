@@ -9,15 +9,15 @@ const contactsSchema = new Schema({
   },
   name: {
     type: String,
-    required: [true, "Set name for contact"],
+    required: [true, "missing required name field"],
   },
   email: {
     type: String,
-    required: [true, "Set email for contact"],
+    required: [true, "missing required email field"],
   },
   phone: {
     type: Number,
-    required: [true, "Set phone number for contact"],
+    required: [true, "missing required phone field"],
   },
   favorite: {
     type: String,
@@ -33,6 +33,7 @@ contactsSchema.path("name").validate((value) => {
 contactsSchema.virtual("strPhone").get(function () {
   return `${this.phone} phone`;
 });
+
 contactsSchema.plugin(mongoosePaginate);
 
 const Contact = model("contact", contactsSchema);

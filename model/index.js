@@ -6,7 +6,6 @@ const listContacts = async (userId, query) => {
     sortByDesc,
     filter,
     favorite = null,
-    limit = 5,
     offset = 0,
   } = query;
 
@@ -16,7 +15,6 @@ const listContacts = async (userId, query) => {
     optionsSearch.favorite = favorite;
   }
   const result = await Contacts.paginate(optionsSearch, {
-    limit,
     offset,
     favorite,
     sort: {
@@ -62,6 +60,15 @@ const updateContact = async (userId, contactId, body) => {
   return result;
 };
 
+const updateStatusContact = async (userId, contactId, { favorite }) => {
+  const result = await Contacts.findByIdAndUpdate(
+    { _id: contactId, owner: userId },
+    { favorite },
+    { new: true }
+  );
+  console.log(result);
+  return result;
+};
 
 
 module.exports = {
@@ -70,4 +77,5 @@ module.exports = {
   removeContact,
   addContact,
   updateContact,
+  updateStatusContact,
 };

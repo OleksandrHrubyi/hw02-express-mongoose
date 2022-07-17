@@ -17,13 +17,16 @@ const {
   updateStatusFav,
 } = require("../../controllers/contacts");
 
+
 router.get("/", validQueryContact, getAll);
 
 router.get("/:contactId", getById);
 
-router.post("/",  validCreateContact, createContact);
+router.post("/", validCreateContact, createContact);
 
-router.patch("/:contactId", validUpdateContacts, updateContactsById);
+router.put("/:contactId", validUpdateContacts, updateContactsById);
+
+router.patch("/:contactId/favorite", validUpdateStatus, updateStatusFav);
 
 router.delete("/:contactId", rmContactById);
 
